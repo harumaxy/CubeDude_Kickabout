@@ -1,0 +1,326 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Pitch.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/CubeDude.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://CubeDude-Kickabout-Assets/Models/Goal/GoalBlue.material" type="Material" id=5]
+[ext_resource path="res://CubeDude-Kickabout-Assets/Models/Cubedude/CubeDube_Blue.material" type="Material" id=6]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Handwagon.tscn" type="PackedScene" id=9]
+[ext_resource path="res://CubeDude-Kickabout-Assets/GFX/floor.jpg" type="Texture" id=10]
+[ext_resource path="res://CubeDude-Kickabout-Assets/GFX/hipster_backgrounds_9.jpg" type="Texture" id=11]
+[ext_resource path="res://default_env.tres" type="Environment" id=12]
+[ext_resource path="res://Scenes/Blocks.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Bear.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Advert.tscn" type="PackedScene" id=15]
+[ext_resource path="res://CubeDude-Kickabout-Assets/GFX/picture.png" type="Texture" id=16]
+[ext_resource path="res://CubeDude-Kickabout-Assets/SFX/airhorn.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Scenes/DirectionalLight.gd" type="Script" id=18]
+[ext_resource path="res://Scenes/SpotLight.gd" type="Script" id=19]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 22, 10, 2 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -11, 5, 1, 11, 5, 1, -11, -5, 1, 11, 5, 1, 11, -5, 1, -11, -5, 1, 11, 5, -1, -11, 5, -1, 11, -5, -1, -11, 5, -1, -11, -5, -1, 11, -5, -1, 11, 5, 1, 11, 5, -1, 11, -5, 1, 11, 5, -1, 11, -5, -1, 11, -5, 1, -11, 5, -1, -11, 5, 1, -11, -5, -1, -11, 5, 1, -11, -5, 1, -11, -5, -1, 11, 5, 1, -11, 5, 1, 11, 5, -1, -11, 5, 1, -11, 5, -1, 11, 5, -1, -11, -5, 1, 11, -5, 1, -11, -5, -1, 11, -5, 1, 11, -5, -1, -11, -5, -1 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 2, 10, 16 )
+
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( -1, 5, 8, 1, 5, 8, -1, -5, 8, 1, 5, 8, 1, -5, 8, -1, -5, 8, 1, 5, -8, -1, 5, -8, 1, -5, -8, -1, 5, -8, -1, -5, -8, 1, -5, -8, 1, 5, 8, 1, 5, -8, 1, -5, 8, 1, 5, -8, 1, -5, -8, 1, -5, 8, -1, 5, -8, -1, 5, 8, -1, -5, -8, -1, 5, 8, -1, -5, 8, -1, -5, -8, 1, 5, 8, -1, 5, 8, 1, 5, -8, -1, 5, 8, -1, 5, -8, 1, 5, -8, -1, -5, 8, 1, -5, 8, -1, -5, -8, 1, -5, 8, 1, -5, -8, -1, -5, -8 )
+
+[sub_resource type="Animation" id=13]
+resource_name = "Dim_Light"
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.05 ]
+}
+
+[sub_resource type="SpatialMaterial" id=5]
+params_cull_mode = 2
+albedo_texture = ExtResource( 10 )
+
+[sub_resource type="PlaneMesh" id=6]
+material = SubResource( 5 )
+size = Vector2( 50, 50 )
+
+[sub_resource type="PlaneMesh" id=7]
+size = Vector2( 80, 80 )
+
+[sub_resource type="SpatialMaterial" id=8]
+params_diffuse_mode = 4
+albedo_texture = ExtResource( 11 )
+
+[sub_resource type="CubeMesh" id=9]
+size = Vector3( 80, 2, 2 )
+
+[sub_resource type="SpatialMaterial" id=10]
+params_diffuse_mode = 4
+albedo_color = Color( 0.984314, 0.0196078, 0.0196078, 1 )
+
+[sub_resource type="PlaneMesh" id=11]
+size = Vector2( 3, 4 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_texture = ExtResource( 16 )
+
+[node name="Game" type="Spatial" groups=[
+"Game",
+]]
+script = ExtResource( 7 )
+
+[node name="Pitch" parent="." instance=ExtResource( 2 )]
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.901, 0 )
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 7.7, 12.7 )
+environment = ExtResource( 12 )
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Player1" parent="Players" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.836, 0, 0 )
+
+[node name="Cube Dube" parent="Players/Player1/Armature/Skeleton" index="0"]
+material/0 = ExtResource( 6 )
+
+[node name="Player2" parent="Players" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.836, 0, 0 )
+player_id = 2
+
+[node name="Goals" type="Node" parent="."]
+
+[node name="Goal1" parent="Goals" instance=ExtResource( 4 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.52346, 0, 0.247935 )
+
+[node name="Goal2" parent="Goals" instance=ExtResource( 4 )]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -9.13989, 0, 0.101948 )
+
+[node name="Goal" parent="Goals/Goal2" index="0"]
+material/0 = ExtResource( 5 )
+
+[node name="Boundness" type="Node" parent="."]
+
+[node name="BackWall" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -9 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/BackWall"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/BackWall/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="FrontWall" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 9 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/FrontWall"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/FrontWall/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="RightWall" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 5, 0 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/RightWall"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/RightWall/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="LeftWall" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5, 0 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/LeftWall"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/LeftWall/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="BackWall2" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -7.3 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/BackWall2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/BackWall2/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="FrontWall2" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 6.8 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/FrontWall2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/FrontWall2/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="RightWall2" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 5, 0 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/RightWall2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/RightWall2/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="LeftWall2" type="MeshInstance" parent="Boundness"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.1, 5, 0 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Boundness/LeftWall2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Boundness/LeftWall2/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="Lights" groups=[
+"Lighting",
+]]
+transform = Transform( 0.653246, -0.271654, 0.706735, -0.0733869, 0.906308, 0.416198, -0.753581, -0.323744, 0.572106, 11.9841, 14.0973, 2.30783 )
+light_color = Color( 1, 0.980392, 0.72549, 1 )
+light_energy = 0.05
+shadow_enabled = true
+shadow_color = Color( 0.176471, 0.0862745, 0.411765, 1 )
+script = ExtResource( 18 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lights/DirectionalLight"]
+anims/Dim_Light = SubResource( 13 )
+
+[node name="SpotLight" type="SpotLight" parent="Lights" groups=[
+"Lighting",
+]]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 10.2191, -6.87374e-07 )
+light_energy = 10.0
+spot_range = 15.6333
+spot_angle = 10.7206
+script = ExtResource( 19 )
+
+[node name="StartPositions" type="Node" parent="."]
+
+[node name="BallSpawn" type="Position3D" parent="StartPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.901, 0 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Player1Spawn" type="Position3D" parent="StartPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.836, 0, 0 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Player2Spawn" type="Position3D" parent="StartPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.836, 0, 0 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="GUI" parent="." instance=ExtResource( 8 )]
+
+[node name="Decor" type="Node" parent="."]
+
+[node name="Handwagon" parent="Decor" instance=ExtResource( 9 )]
+transform = Transform( 4.92404, 0, -0.868241, 0, 5, 0, 0.868241, 0, 4.92404, -12.8434, 0, 0.5 )
+
+[node name="Floor" type="MeshInstance" parent="Decor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0629308, 0 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="bear" parent="Decor/Floor" instance=ExtResource( 14 )]
+transform = Transform( -0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, -0.906308, 13.3, 0, -6.5 )
+
+[node name="Background" type="MeshInstance" parent="Decor"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 4.69543, -10.0904 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="SkirtingBoard" type="MeshInstance" parent="Decor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.1 )
+mesh = SubResource( 9 )
+material/0 = SubResource( 10 )
+
+[node name="Blocks" parent="Decor" instance=ExtResource( 13 )]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -13.1633, 1, -6.03354 )
+
+[node name="Blocks2" parent="Decor" instance=ExtResource( 13 )]
+transform = Transform( 0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, -15.0806, 1, -5.24555 )
+
+[node name="Blocks3" parent="Decor" instance=ExtResource( 13 )]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -14.2983, 3, -5.72167 )
+
+[node name="Advert" parent="Decor" instance=ExtResource( 15 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, -8.8 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Decor"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 5.9, 4.1, -9.8 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
+
+[node name="Airhorn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -10.0
+[connection signal="body_entered" from="Goals/Goal1/GoalDetection" to="." method="_on_GoalDetection_body_entered" binds= [ 1 ]]
+[connection signal="body_entered" from="Goals/Goal2/GoalDetection" to="." method="_on_GoalDetection_body_entered" binds= [ 2 ]]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[editable path="Players/Player1"]
+
+[editable path="Goals/Goal1"]
+
+[editable path="Goals/Goal2"]

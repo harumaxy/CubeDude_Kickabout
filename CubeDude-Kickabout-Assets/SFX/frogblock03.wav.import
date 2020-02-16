@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/frogblock03.wav-373d728ceb883d8b364d55eecacc726f.sample"
+
+[deps]
+
+source_file="res://CubeDude-Kickabout-Assets/SFX/frogblock03.wav"
+dest_files=[ "res://.import/frogblock03.wav-373d728ceb883d8b364d55eecacc726f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
